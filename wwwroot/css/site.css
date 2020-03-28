@@ -1,0 +1,160 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+/*----------------------------------------------------------------------*/
+.dn{
+    display:none !important;
+}
+.db {
+   display:block !important;
+}
+
+/*----------------------------------------------------------------------*/
+
+
+.loader {
+    margin: 0 auto;
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+    .loader > div {
+        height: 100%;
+        width: 8px;
+        display: inline-block;
+        float: left;
+        margin-left: 2px;
+        -webkit-animation: delay 0.8s infinite ease-in-out;
+        animation: delay 0.8s infinite ease-in-out;
+    }
+
+    .loader .bar1 {
+        background-color: #754fa0;
+    }
+
+    .loader .bar2 {
+        background-color: #09b7bf;
+        -webkit-animation-delay: -0.7s;
+        animation-delay: -0.7s;
+    }
+
+    .loader .bar3 {
+        background-color: #90d36b;
+        -webkit-animation-delay: -0.6s;
+        animation-delay: -0.6s;
+    }
+
+    .loader .bar4 {
+        background-color: #f2d40d;
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+
+    .loader .bar5 {
+        background-color: #fcb12b;
+        -webkit-animation-delay: -0.4s;
+        animation-delay: -0.4s;
+    }
+
+    .loader .bar6 {
+        background-color: #ed1b72;
+        -webkit-animation-delay: -0.3s;
+        animation-delay: -0.3s;
+    }
+
+@-webkit-keyframes delay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.05);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes delay {
+    0%, 40%, 100% {
+        transform: scaleY(0.05);
+        -webkit-transform: scaleY(0.05);
+    }
+
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}

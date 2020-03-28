@@ -1,0 +1,23 @@
+﻿@model UploadFiles.Models.Jobs
+
+@{
+    ViewData["Title"] = "Sent";
+}
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Done, they were already sent</h5>
+        
+        @if (Model != null)
+        {
+            <h4>  @Html.DisplayFor(Model => Model.Customers.BusinessName)</h4>
+            <h6> Job  @Html.DisplayFor(Model => Model.JobName)</h6>
+            <a asp-controller="Home" asp-action="Index" asp-route-guid="@Model.Customers.Guid" asp-route-id="@Model.Id" class="btn btn-primary btn-sm ">Add New File </a>
+            <a asp-controller="Home" asp-action="Index" asp-route-guid="@Model.Customers.Guid" class="btn btn-primary btn-sm ">New Job</a>
+        }
+        else
+        {
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-sm ">New Job</a>
+        }
+    </div>
+</div>

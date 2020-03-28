@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "formAjax";
+}
+
+<h1>formAjax</h1>
+
+
+
+<form asp-action="SaveForm" asp-controller="Home" data-ajax="true"
+      data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+      data-ajax-failure="onFailed" data-ajax-success="onSuccess"
+      data-ajax-method="POST">
+
+    <input type="submit" />
+
+    <div id="Results"> </div>
+</form>
+
+@section Scripts  {
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script type="text/javascript">
+
+        var results = $("#Results");
+
+        var onBegin = function () {
+            debugger;
+
+            results.html("<img src=\"/images/ajax-loader.gif\" alt=\"Loading\" />");
+        };
+
+
+        var onComplete = function () {
+            debugger;
+            alert("Complete");
+        };
+
+        var onSuccess = function (context) {
+            debugger;
+            alert(context);
+        };
+
+        var onFailed = function (context) {
+            debugger;
+            alert(context);
+        };
+    </script>
+
+
+}
+

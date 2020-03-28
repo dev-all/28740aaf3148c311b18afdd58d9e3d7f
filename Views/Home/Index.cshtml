@@ -1,0 +1,215 @@
+﻿@model UploadFiles.Models.Jobs
+@{
+    ViewData["Title"] = "Upload Files";
+}
+
+
+
+<div class="py-5 text-center">
+
+    <h2>Welcome     @Html.DisplayFor(model => model.Customers.BusinessName) </h2>
+    <p class="text-dark font-weight-bold">Jobs   @Html.DisplayFor(model => model.JobName)</p>
+
+</div>
+
+
+<form asp-action="SaveJob" asp-controller="Home" data-ajax="true"
+      data-ajax-complete="onComplete"
+      data-ajax-failure="onFailed"
+      data-ajax-success="onSuccess"
+      data-ajax-method="POST">
+
+    @Html.AntiForgeryToken()
+    <div class="card animated fadeInLeft delay-1s cordJobFile" style="width:20em;">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-12 order-md-1 col-Job">
+                    <h4 class="mb-3">
+                        <font style="vertical-align: inherit;">
+                            Jobs
+                        </font>
+                    </h4>
+
+                    <input type="hidden" asp-for="IdCustomer" />
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="COD" />
+                    <input type="hidden" asp-for="JobName" />
+                    <div class="inputs-hiddens invisible " hidden></div>
+                    <div class="md-3">
+                        <label for="expiration">Expiration</label>
+                        <input type="text" asp-for="DateExpiration" class="form-control" placeholder="" required="">
+                        <div class="invalid-feedback">
+                            Expiration date required
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" asp-for="IsUnique">
+                        <label class="custom-control-label" for="IsUnique">Is Unique</label>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" asp-for="Notes" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="body-archivos-adj col-md-6 col-md-offset-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button type="button" class="btn btn-outline-primary adj-archivo"><i class="fa fa-check"></i>  Add your files </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="order-md-2 mb-4 invisible  Yourfiles col-file dn">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Your files</font></font></span>
+                        <span class="badge badge-secondary badge-pill">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;"><span class="lenfile"></span></font>
+                            </font>
+                        </span>
+                    </h4>
+
+                    <ul class="list-group mb-3 list-file-all " style="height: 265px; overflow-y:auto!important;">
+                    </ul>
+                    <div class="row">
+                        <div class="col-md-10 offset-1 text-center">
+                            <button type="submit" class="btn btn-outline-success btn-block SendFile"> Send <i class="fa fa-paper-plane-o"></i> </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+@section Scripts  {
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script type="text/javascript">
+
+
+       
+        var onComplete = function (xhr) {
+            // llamar cuando los datos de respuesta se han instanciado pero antes de que se actualice la página.         
+             var respons = JSON.parse(xhr.responseJSON);
+                               
+            if (respons.result != 200) {
+                   $.xhrPool.abortAll();
+                swal("onComplete _" + respons.data + " _" + respons.result);
+
+            } else {
+              
+
+                var archivos_adjuntos_items = $('.item-archivo-adjunto');
+                if (archivos_adjuntos_items.length != 0) {
+                    for (var i = 0, f; f = $('input:file')[i]; ++i) {
+                        if (f.files.length > 0) {
+                                var filesForm = new FormData();
+                   
+                    $("#" + f.name).prop('files') && filesForm.append('dataFile', $("#" + f.name).prop('files')[0]);          
+                    filesForm.append('Id', respons.data);                   
+                    filesForm.append('jobname', $("#JobName").val());
+                    var bar = '<div class="progress" id="' + i + '">' +
+                        '<div id="progress-bar-' + i + '" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>' +
+                    '</div> </br>'                 
+                    $(".progress-container").append(bar);
+                            uploadFile(filesForm, i, f)
+                        }
+                    }
+
+
+
+                  //  window.location.href = baseUrl + '/Home/Sent/' + $("#JobName").val();
+
+                }
+
+            }
+
+        };
+
+        var onSuccess = function (context) {
+            // llamar después de que la página se actualice correctamente.
+            //   window.location.href = baseUrl + '/Home/Sent/' + $("#JobName").val();
+            //var respons = JSON.parse(context);
+            //if (respons.result != 200) {
+            //    alert('Error onSuccess');
+            //} else {
+              
+
+            //    var archivos_adjuntos_items = $('.item-archivo-adjunto');
+            //    if (archivos_adjuntos_items.length != 0) {
+            //        for (var i = 0, f; f = $('input:file')[i]; ++i) {
+            //            if (f.files.length > 0) {
+            //                    var filesForm = new FormData();
+                   
+            //        $("#" + f.name).prop('files') && filesForm.append('dataFile', $("#" + f.name).prop('files')[0]);          
+            //        filesForm.append('Id', respons.data);                   
+            //        filesForm.append('jobname', $("#JobName").val());
+            //        var bar = '<div class="progress" id="' + i + '">' +
+            //            '<div id="progress-bar-' + i + '" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>' +
+            //        '</div> </br>'                 
+            //        $(".progress-container").append(bar);
+            //                uploadFile(filesForm, i, f)
+            //            }
+            //        }
+
+
+
+            //      //  window.location.href = baseUrl + '/Home/Sent/' + $("#JobName").val();
+
+            //    }
+
+            //}
+        };
+
+        var onFailed = function (context) {
+            //llamar si falla la actualización de la página.
+            // alert(context);
+            //$.ajax({
+            //                    url: baseUrl + '/Home/AjaxFile',
+            //                     type: "post",
+            //                     dataType: "json",            
+            //                     cache: false,
+            //                     contentType: false,
+            //                     processData: false,
+            //                    data: {
+            //                        id: respons.data,
+            //                        name: $("#JobName").val(),
+            //                        dataFile: $("#" + f.name).prop('files')[0],
+            //                    },
+            //                    success: function (saveFile) {
+
+            //                        if (saveFile.result) {
+            //                            console.log(saveFile.data);                                       
+            //                        }
+            //                    },
+            //                    error: function (xhr, errmsg, err) {
+            //                        console.log(xhr.status + ": " + xhr.responseText);
+            //                    }
+            //                });
+        };
+
+        var onBegin = function () {
+            //Obtiene o establece el nombre de la función de JavaScript para llamar inmediatamente antes de que se actualice la página.
+        };
+
+
+    </script>
+
+
+}

@@ -1,0 +1,132 @@
+﻿@model UploadFiles.Models.Jobs
+
+@{
+    ViewData["Title"] = "Upload Files";
+}
+
+<div class="py-5 text-center">
+
+    <h2>Welcome     @Html.DisplayNameFor(model => model.Customers.BusinessName) </h2>
+    <p class="lead">Upload Files   @Html.DisplayNameFor(model => model.JobName)</p>
+
+</div>
+
+<div class="card animated fadeInLeft delay-1s" style="width: 40rem;">
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-6 order-md-1">
+
+                <h4 class="mb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></h4>
+
+                <form class="needs-validation" novalidate="">
+                    <input type="hidden" asp-for="IdCustomer" />
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="inputs-hiddens invisible " hidden></div>
+                    <div class="md-3">
+                        <label for="expiration">Expiration</label>
+                        <input type="text" class="form-control" id="expiration" placeholder="" required="">
+                        <div class="invalid-feedback">
+                            Expiration date required
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="isUnique">
+                        <label class="custom-control-label" for="isUnique">Is Unique</label>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="body-archivos-adj col-md-6 col-md-offset-3"></div>
+                    </div>
+                    <hr class="mb-4">
+
+                    <button class="btn btn-primary btn-block adj-archivo">
+                        <font style="vertical-align: inherit;">Add your files <i class="fa fa-file-plus"></i></font>
+                    </button>
+                </form>
+
+
+            </div>
+
+            <div class="col-md-6 order-md-2 mb-4 invisible  Yourfiles">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Your files</font></font></span>
+                    <span class="badge badge-secondary badge-pill">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;"><span class="lenfile"></span></font>
+                        </font>
+                    </span>
+                </h4>
+
+                <ul class="list-group mb-3 list-file-all ">
+                </ul>
+
+                <button class="btn btn-success btn-block SendFile">
+                    <font style="vertical-align: inherit;">Send <i class="fa fa-file-plus"></i></font>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<div class="card goingUp invisible animated fadeInLeft slow" style="width: 40rem;">
+
+        <div class="card-body">
+            <h5 class="card-title d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">     Going up...</font></font></span>
+                <span class="badge badge-secondary badge-pill">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;"><span class="lenfile"></span></font>
+                    </font>
+                </span>
+            </h5>
+
+
+
+
+            <div class="row m-5">
+                <div class="col ">
+                    <div class="loader">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                        <div class="bar4"></div>
+                        <div class="bar5"></div>
+                        <div class="bar6"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row m-5">
+                <div class="col ">
+
+                    <div class="progress-container"></div>
+                </div>
+
+            </div>
+
+
+            <button type="button" class="btn btn-danger" id="CancelarGoing">Cancel</button>
+        </div>
+    </div>*@
+
+
+
+
+
+
+
+
+
+

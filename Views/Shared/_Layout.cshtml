@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UploadFiles</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link href="~/lib/animate.css/animate.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!--alerts CSS -->
+
+    <link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <link href="~/lib/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UploadFiles</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+
+        </main>
+
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>-->
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">     Going up...</font></font></span>
+                        <span class="badge badge-secondary badge-pill">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;"><span class="lenfile"></span></font>
+                            </font>
+                        </span>
+                    </h4>
+
+                  
+
+                    <div class="row m-5">
+                        <div class="col ">
+
+                            <div class="progress-container"></div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <!-- Modal footer       -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="CancelarGoing" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - UploadFiles
+        </div>
+    </footer>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Sweet-Alert  -->
+   
+
+
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="~/lib/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+    <script src="~/js/vendor.min.js" asp-append-version="true"></script>
+    <script src="~/lib/moment.js/moment.js"></script>
+    <script src="~/lib/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js"></script>
+
+
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-backstretch/jquery.backstretch.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+
+        $(document).ajaxStart(function () {
+            $('#myModal').modal({ backdrop: 'static', keyboard: false });
+            $('#myModal').modal("show");
+        });
+
+        $(document).ajaxError (function () {
+            console.log('ajaxStop');
+        });
+
+        $(document).ajaxStop(function () {
+            $("#progress-container").remove();
+            $('#myModal').modal("hide");
+            //window.location.href = baseUrl + '/Home/Sent/' + $("#JobName").val();
+        });
+
+
+        $(document).on("click", "#CancelarGoing", function () {
+            $.xhrPool.abortAll();
+        });
+
+        $.xhrPool = [];
+        $.xhrPool.abortAll = function () {
+            $(this).each(function (idx, jqXHR) {
+                jqXHR.abort();
+            });
+            $.xhrPool = [];
+        };
+
+        $.ajaxSetup({
+            beforeSend: function (jqXHR) {
+                $.xhrPool.push(jqXHR);
+            },
+            complete: function (jqXHR) {
+                var index = $.xhrPool.indexOf(jqXHR);
+                if (index > -1) {
+                    $.xhrPool.splice(index, 1);
+                }
+            }
+        });
+
+
+        $.backstretch("/img/wallpaper.jpg", { speed: 500 });
+    </script>
+
+</body>
+</html>

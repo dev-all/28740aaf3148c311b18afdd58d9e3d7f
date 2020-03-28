@@ -1,0 +1,64 @@
+﻿@model UploadFiles.Models.CustomerJobsViewModel
+
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h4>  @Html.DisplayFor(Model => Model.Customers.BusinessName)</h4>
+<h6> Job  @Html.DisplayFor(Model => Model.Jobs.JobName)</h6>
+<h6> Date Expiration @Html.DisplayFor(Model => Model.Jobs.DateExpiration)</h6>
+
+<div class="table-responsive ">
+    <table class="table table-hover table-active">
+        <thead class="">
+
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Creation Date
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    @if (!Model.Invited)
+                    {
+                        <a asp-controller="Home" asp-action="Index" asp-route-guid="@Model.Customers.Guid" asp-route-id="@Model.Jobs.Id" class="btn btn-primary btn-sm ">Send New File</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-sm ">Send New File</a>
+                    }
+
+
+                </th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var file in Model.JobsFileUpload)
+            {
+                <tr>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => file.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => file.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => file.Quantity)
+                    </td>
+
+                    <td>
+                        <a asp-controller="Home" asp-action="Detailfile" asp-route-id="@file.Id" class="btn waves-effect waves-light btn-rounded btn-sm btn-success"><i class="fa fa-marker fa-lg"></i> Descargar</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
